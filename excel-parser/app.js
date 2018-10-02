@@ -11,7 +11,13 @@ const worksheet = workbook.Sheets[first_sheet_name];
 function main() {
   let name = askName();
   if (checkName(name, worksheet)) {
-    parseObjToArr(name, worksheet);
+    let datesAndNames = parseObjToArr(worksheet);
+    let workerIndexes = getIndex(datesAndNames);
+
+    let workerOne = cutArray(datesAndNames, workerIndexes[0]);
+    let workerTwo = cutArray(datesAndNames, workerIndexes[1]);
+    let workerThree = cutArray(datesAndNames, workerIndexes[2]);
+    let workerFour = cutArray(datesAndNames, workerIndexes[3]);
   }
 }
 
@@ -37,11 +43,48 @@ function checkName(name, worksheet) {
   }
 }
 
-function parseObjToArr(name, worksheet) {
-  for (object in worksheet) {
-    let someObj = worksheet[object];
-    console.log(someObj[Object.keys(someObj)[1]]);
+
+function parseObjToArr(worksheet) {
+  let datesAndNames = [];
+
+  for (value in worksheet) {
+    valueObj = worksheet[value];
+    datesAndNames.push(valueObj[Object.keys(valueObj)[1]]);
   }
+  return datesAndNames;
 }
 
+
+function getIndex(datesAndNames) {
+  let workerIndexes = [];
+  workerIndexes.push(_.indexOf(datesAndNames, worksheet['A1'].v));
+  workerIndexes.push(_.indexOf(datesAndNames, worksheet['A2'].v));
+  workerIndexes.push(_.indexOf(datesAndNames, worksheet['A3'].v));
+  workerIndexes.push(_.indexOf(datesAndNames, worksheet['A4'].v));
+  return workerIndexes
+}
+
+
+function cutArray(datesAndNames, workerIndex) {
+  let dates = [];
+
+  for (let i = 0; i < datesAndNames.length; i++) {
+    if (datesAndNames[i] === workerIndex) {
+      
+    }
+  }
+  // let length = secondWorkerInArr;
+  //
+  // if (secondWorkerInArr === undefined) {
+  //   length = datesAndNames.length
+  // } else {
+  //   for (i = firstWorkerInArr; i < length; i++) {
+  //     dates.push(datesAndNames[i]);
+  //   }
+  // }
+  // dates.shift();
+  // datesAndNames.splice(firstWorkerInArr, length);
+
+  return dates;
+}
 main();
