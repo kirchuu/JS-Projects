@@ -17,7 +17,7 @@ function main() {
     let workerOne = cutArray(datesAndNames, workerIndexes[0]);
     let workerTwo = cutArray(datesAndNames, workerIndexes[1]);
     let workerThree = cutArray(datesAndNames, workerIndexes[2]);
-    let workerFour = cutArray(datesAndNames, workerIndexes[3]);
+    let workerFour = checkLength(cutArray(datesAndNames, workerIndexes[3]), workerOne);
   }
 }
 
@@ -67,24 +67,25 @@ function getIndex(datesAndNames) {
 
 function cutArray(datesAndNames, workerIndex) {
   let dates = [];
+  let valueLength = 3;
 
-  for (let i = 0; i < datesAndNames.length; i++) {
-    if (datesAndNames[i] === workerIndex) {
-      
+  for (let i = workerIndex; i < datesAndNames.length; i++) {
+    let element = datesAndNames[i];
+    if (element !== datesAndNames[workerIndex] && element.length > valueLength) {
+      break
+    } else {
+      dates.push(element);
     }
   }
-  // let length = secondWorkerInArr;
-  //
-  // if (secondWorkerInArr === undefined) {
-  //   length = datesAndNames.length
-  // } else {
-  //   for (i = firstWorkerInArr; i < length; i++) {
-  //     dates.push(datesAndNames[i]);
-  //   }
-  // }
-  // dates.shift();
-  // datesAndNames.splice(firstWorkerInArr, length);
-
-  return dates;
+  return _.drop(dates);
 }
+
+
+function checkLength(days, workerOne) {
+  if (days.length !== workerOne.length) {
+    return _.dropRight(days)
+  } else return days
+}
+
+
 main();
