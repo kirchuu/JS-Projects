@@ -113,29 +113,30 @@ function createEvent(userDays, events, workersDays) {
     let workHours = parseInt(userDays[i]);
 
     if (!_.isNaN(workHours)) {
-      let day = i + 1;
-      events.push(createSchema(userDays, day, workersDays));
+      let index = i;
+      events.push(createSchema(userDays, index, workersDays));
     }
   }
 }
 
 
-function createSchema(userDays, day, workersDays) {
+function createSchema(userDays, index, workersDays) {
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let monthDays = userDays.length;
+  let day = index + 1;
 
   let endYear = checkYear(year, monthDays, month, day + 1);
   let endMonth = checkMonth(monthDays, month, day + 1);
   let endDay = checkDay(monthDays, day + 1);
 
-  let workWith = compareDays(day, userDays, workersDays);
+  let workWith = compareDays(index, userDays, workersDays);
 
   const event = {
     start: [year, month, day],
     end: [endYear, endMonth, endDay],
-    title: `Work with ${workWith}`,
+    title: `Working with ${workWith}`,
     description: `Arvutitark`
   }
   return event
@@ -165,16 +166,26 @@ function checkYear(year, monthDays, month, day) {
 }
 
 
-function compareDays(day, userDays, workersDays) {
+function compareDays(index, userDays, workersDays) {
   for (worker in workersDays) {
-    if (userDays.toString() !== workersDays[worker].toString()) {
-      let workHours = parseInt(workersDays[worker][day]);
-      if (!_.isNaN(workersDays[worker][day])) {
-        let index = worker + 1;
-        console.log(index, `A${index}`);
-        return worksheet[`A${index}`].v
-      }
+    let isWorkerUser = userDays.toString() === workersDays[worker].toString();
+    let isFreeDay = _.isNaN(parseInt(workersDays[worker][index]));
+    if (!isWorkerUser && !isFreeDay) {
+      return getWorker(parseInt(worker));
     }
+  }
+}
+
+
+function getWorker(worker) {
+  if (worker === 0) {
+    return worksheet['A1'].v
+  } else if (worker === 1) {
+    return worksheet['A2'].v
+  } else if (worker === 2) {
+    return worksheet['A3'].v
+  } else if (worker === 3) {
+    return worksheet['A4'].v
   }
 }
 
