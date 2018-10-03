@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ics": "^2.7.2",
     "lodash": "^4.17.11",
     "nodemon": "^1.18.4",
     "readline-sync": "^1.4.9",
