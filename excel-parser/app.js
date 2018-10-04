@@ -4,7 +4,6 @@ const readline = require('readline-sync');
 const _ = require('lodash');
 const ics = require('ics');
 
-
 const workbook = XLSX.readFile('./excel-table/table.xlsx');
 const first_sheet_name = workbook.SheetNames[0];
 const worksheet = workbook.Sheets[first_sheet_name];
@@ -134,9 +133,9 @@ function createSchema(userDays, index, workersDays) {
   let workWith = compareDays(index, userDays, workersDays);
 
   const event = {
+    title: `Working with ${workWith}`,
     start: [year, month, day],
     end: [endYear, endMonth, endDay],
-    title: `Working with ${workWith}`,
     description: `Arvutitark`
   }
   return event
@@ -191,14 +190,8 @@ function getWorker(worker) {
 
 
 function writeToCal(events) {
-  ics.createEvents(events, (error, value) => {
-    if (error) {
-      console.log(error)
-    }
-  console.log(events);
-  writeFileSync(`./ics/event.ics`, events)
-  });
+  const { error, value } = ics.createEvents(events);
+  writeFileSync(`./ics/event.ics`, value);
 }
-
 
 main();
