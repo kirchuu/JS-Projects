@@ -2,7 +2,7 @@ function checkMonth(monthDays, month, day) {
   if (month === 12 && day > monthDays) {
     return 1
   } else if (day > monthDays) {
-    return month+1
+    return month + 1
   } else return month
 }
 
@@ -16,7 +16,7 @@ function checkDay(monthDays, day) {
 
 function checkYear(year, monthDays, month, day) {
   if (month === 12 && day > monthDays) {
-    return year+1
+    return year + 1
   } else return year
 }
 

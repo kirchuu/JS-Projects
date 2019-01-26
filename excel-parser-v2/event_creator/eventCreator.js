@@ -4,8 +4,8 @@ const excel = require('../excel_tools/excelTools');
 
 
 function createEventsArray(name, usersWithDaysCollection) {
-  userDaysArray = usersWithDaysCollection[name];
-  userWorkDaysArray = [];
+  const userDaysArray = usersWithDaysCollection[name];
+  let userWorkDaysArray = [];
   for (let i = 0; i < userDaysArray.length; i++) {
     let workHours = parseInt(userDaysArray[i]);
     if (!_.isNaN(workHours)) {
@@ -26,15 +26,24 @@ function createEventCollection(name, usersWithDaysCollection, index) {
   let endMonth = validator.checkMonth(daysInTable, month, day + 1);
   let endDay = validator.checkDay(daysInTable, day + 1);
 
-  let workWith = excel.getWorkerNameByDate(name, userDaysCollection, index);
+  let workWith = excel.getWorkerNameByDate(name, usersWithDaysCollection, index);
+  let title = getEventTitle(workWith);
 
   const event = {
-    title: `Working with ${workWith}`,
+    title: `${title}`,
     start: [year, month, day],
     end: [endYear, endMonth, endDay],
     description: `Arvutitark`
   }
   return event
+}
+
+function getEventTitle(workWith) {
+  if (workWith == null) {
+    return 'Working alone!? Oh my..'
+  } else {
+    return `Working with ${workWith}`
+  }
 }
 
 module.exports.createEventsArray = createEventsArray
