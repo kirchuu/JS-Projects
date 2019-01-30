@@ -10,7 +10,7 @@ function main() {
   const userName = inputTools.getName(representation);
   const usersWithDaysCollection = excel.getCollectionWithUsers(representation);
   const userEventsArray = event.createEventsArray(userName, usersWithDaysCollection);
-  icsCreator.createICSFile(userEventsArray);
+  icsCreator.createICSFile(userEventsArray, userName);
 }
 
 main();

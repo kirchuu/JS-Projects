@@ -77,9 +77,15 @@ function replaceEstonianLetters(input) {
   return input
 }
 
+function replaceSpaceOnUnderscore(userName) {
+  userName = userName.replace(' ', '_')
+  return userName
+}
+
 
 module.exports = {
   getName,
   getWorkPlace,
-  getWorkRepresentation
+  getWorkRepresentation,
+  replaceSpaceOnUnderscore
 }
