@@ -1,6 +1,10 @@
 
 excel-parser-v2/excel_table/.~lock.table.xlsx#
-excel-parser-v2/excel_table/.~lock.table.xlsx#
-excel-parser-v2/excel_table/.~lock.table.xlsx#
+excel-parser-v2/excel_table/table_AT_Kristiine.xlsx
+excel-parser-v2/excel_table/table_Ulemiste.xlsx
 excel-parser-v2/ics_generated_file/events.ics
 excel-parser-v2/ics_generated_file/events_Kirill_Kostev.ics
+backend
+.git
+.idea
+.DS_Store
